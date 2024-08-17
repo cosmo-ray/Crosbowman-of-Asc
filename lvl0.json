@@ -1,0 +1,11 @@
+{
+    "size": [60, 40],
+    "#": "rgba: 127 127 127 200",
+    "'": "rgba: 127 127 127 100",
+    "objs": [
+	["door", "amap.next"],
+	["door", "amap.next1"]
+    ],
+    "next": "lvl01",
+    "next1": "lvl10"
+}

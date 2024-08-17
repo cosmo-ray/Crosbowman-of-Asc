@@ -1,0 +1,7 @@
+{
+    "size": [40, 60],
+    "objs": [
+	["door", ["amap.next", [4, 7]]]
+    ],
+    "next": "lvl0"
+}
