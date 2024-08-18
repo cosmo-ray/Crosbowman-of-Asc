@@ -1,7 +1,7 @@
 {
     "size": [40, 60],
     "boss": {
-	"path": "threeformsPJ2.png",
+	"path": ["threeformsPJ2.png", [0, 0, 64, 128]],
 	"life": 50,
 	"action": "united_stance_on_allimentation.boss0",
 	"win": "amap.win",

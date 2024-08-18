@@ -21,8 +21,9 @@ function mod_init(mod)
 {
     ygAddModule(Y_MOD_YIRL, mod, "amap")
     let wid = yeCreateArray(mod, "starting_widget")
+    yeCreateFunction(boss0, mod, "boss0")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
-    wid.setAt("map", "lvl0")
+    wid.setAt("map", "lvl10")
     return mod
 }
