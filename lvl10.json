@@ -1,3 +1,10 @@
 {
-    "size": [40, 60]
+    "size": [40, 60],
+    "boss": {
+	"path": "threeformsPJ2.png",
+	"life": 50,
+	"action": "united_stance_on_allimentation.boss0",
+	"win": "amap.win",
+	"pos": [100, 20]
+    }
 }

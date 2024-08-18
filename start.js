@@ -12,10 +12,16 @@
 //
 //  0. You just DO WHAT THE FUCK YOU WANT TO.
 
+function boss0(mod)
+{
+    print("boss 0 callback")
+}
+
 function mod_init(mod)
 {
     ygAddModule(Y_MOD_YIRL, mod, "amap")
     let wid = yeCreateArray(mod, "starting_widget")
+    wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
     wid.setAt("map", "lvl0")
     return mod
