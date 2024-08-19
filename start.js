@@ -93,5 +93,6 @@ function mod_init(mod)
     wid.setAt("<type>", "amap")
     wid.setAt("map", "lvl10")
     mod.setAt("Name", "usoa")
+    wid.setAt("life-bar", 1)
     return mod
 }
