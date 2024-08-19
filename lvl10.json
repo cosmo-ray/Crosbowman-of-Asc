@@ -3,14 +3,14 @@
     "boss": {
 	"path": ["threeformsPJ2.png", [0, 0, 64, 128]],
 	"life": 50,
-	"action": "united_stance_on_allimentation.boss0",
+	"action": "usoa.boss0",
 	"win": "amap.win",
 	"pos": [100, 20]
     },
     "monsters": {
 	"p": {
 	    "life": 5,
-	    "action": "united_stance_on_allimentation.bullet",
+	    "action": "usoa.bullet",
 	    "img": "uwu-head"
 	}
     },

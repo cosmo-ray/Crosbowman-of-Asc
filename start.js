@@ -92,5 +92,6 @@ function mod_init(mod)
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
     wid.setAt("map", "lvl10")
+    mod.setAt("Name", "usoa")
     return mod
 }
