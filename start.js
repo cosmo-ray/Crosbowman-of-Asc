@@ -15,6 +15,38 @@
 const BOSS_METADATA = 10
 const BOSS_TIMER_IDX = 0
 
+function menu_action(wid, events)
+{
+    if (yevIsKeyDown(events, Y_ESC_KEY)) {
+	wid.setAt("action", wid.get("_old_action"))
+	wid.rm("_old_action")
+	ywCanvasClearArray(wid, wid.get("_menu_stuff"));
+	wid.rm("_menu_stuff")
+	return
+    }
+}
+
+function on_esc(wid)
+{
+    let pc = wid.get("pc")
+    wid.setAt("_old_action", wid.get("action"))
+    wid.setAt("action", yeCreateFunction(menu_action))
+    let menu_stuff = yeCreateArray(wid, "_menu_stuff")
+    let wid_pix = wid.get("wid-pix")
+    let pix0x = ywCanvasPix0X(wid)
+    let pix0y = ywCanvasPix0Y(wid)
+    let rect = ywCanvasNewRectangle(wid, pix0x + 10, pix0y + 10,
+				    wid_pix.geti(2) - 20, wid_pix.geti(3) - 20,
+				    "rgba: 100 100 100 200")
+    menu_stuff.push(rect)
+    let str = yeCreateString("INFO\nLife: ")
+    str.add(pc.geti("life")).add(" / ").add(pc.geti("max_life")).add("\n")
+    str.add("xp: ").add(pc.geti("xp")).add("\n")
+    str.add("atk: ").add(pc.get("stats").geti("strength"))
+    let t = ywCanvasNewTextExt(wid, pix0x + 50, pix0y + 50, str, "rgba: 255 255 255 255")
+    menu_stuff.push(t)
+}
+
 function bullet(wid, tuple)
 {
     let bullet = tuple.get(0)
@@ -86,13 +118,16 @@ function boss0(wid, tuple)
 function mod_init(mod)
 {
     ygAddModule(Y_MOD_YIRL, mod, "amap")
+    mod.setAt("Name", "usoa")
+
     let wid = yeCreateArray(mod, "starting_widget")
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(bullet, mod, "bullet")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
     wid.setAt("map", "lvl10")
-    mod.setAt("Name", "usoa")
     wid.setAt("life-bar", 1)
+    let on_callbacks = yeCreateArray(wid, "on")
+    yeCreateFunction(on_esc, on_callbacks, "esc")
     return mod
 }
