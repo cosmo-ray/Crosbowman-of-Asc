@@ -1,7 +1,10 @@
 {
     "size": [40, 60],
     "objs": [
-	["door", ["amap.next", [4, 7]]]
+	["door", ["amap.next", [4, 7]]],
+	["upshoot", ["usoa.can_upshoot"]]
     ],
+    "objs_condition": [null, ["!exist", "usoa.starting_widget.can_upshoot"]],
+    "move_objs": [1],
     "next": "lvl0"
 }

@@ -15,6 +15,13 @@
 const BOSS_METADATA = 10
 const BOSS_TIMER_IDX = 0
 
+function can_upshoot(wid)
+{
+    print("call can upshoot")
+    wid.setAt("can_upshoot", 1)
+    return 2
+}
+
 function menu_action(wid, events)
 {
     if (yevIsKeyDown(events, Y_ESC_KEY)) {
@@ -121,12 +128,27 @@ function mod_init(mod)
     mod.setAt("Name", "usoa")
 
     let wid = yeCreateArray(mod, "starting_widget")
+    yeCreateFunction(can_upshoot, mod, "can_upshoot")
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(bullet, mod, "bullet")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
-    wid.setAt("map", "lvl10")
+    wid.setAt("map", "lvl01")
     wid.setAt("life-bar", 1)
+    let jmp_sprites = yeCreateArray(wid, "pc-jmp-sprites")
+    jmp_sprites.push("./guy-jmp.png")
+    let punch_sprites = yeCreateArray(wid, "pc-punch-sprites")
+    punch_sprites.push("./guy-punch.png")
+    let dash_sprites = yeCreateArray(wid, "pc-dash-sprites")
+    dash_sprites.push("./guy-dash.png")
+
+    let run_sprites = yeCreateArray(wid, "pc-sprites")
+    run_sprites.push("./guy-run-0.png")
+    run_sprites.push("./guy-run-1.png")
+
+    let textures = yeCreateArray(wid, "extra-textures")
+    textures.setAt("upshoot", "up-shoot.png")
+
     let on_callbacks = yeCreateArray(wid, "on")
     yeCreateFunction(on_esc, on_callbacks, "esc")
     return mod
