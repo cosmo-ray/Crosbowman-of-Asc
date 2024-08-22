@@ -6,5 +6,12 @@
     ],
     "objs_condition": [null, ["!exist", "usoa.starting_widget.can_upshoot"]],
     "move_objs": [1],
+    "monsters": {
+	"v": {
+	    "life": 5,
+	    "action": ["amap.mons_mv.left_right", 200],
+	    "img": "vodeo-monster"
+	},
+    },
     "next": "lvl0"
 }
