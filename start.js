@@ -15,9 +15,14 @@
 const BOSS_METADATA = 10
 const BOSS_TIMER_IDX = 0
 
+function can_longjmp(wid)
+{
+    let pc = wid.get("pc")
+    pc.setAt("jmp-power", 10)
+}
+
 function can_upshoot(wid)
 {
-    print("call can upshoot")
     wid.setAt("can_upshoot", 1)
     return 2
 }
@@ -60,6 +65,14 @@ function bullet(wid, tuple)
     let mover = bullet.get(2)
     const turn_timer = tuple.geti(1)
     y_move_obj(bullet.get(3), mover, turn_timer)
+}
+
+function boss0_dead(wid, tuple)
+{
+    yamap_push_obj(wid, ywPosCreate(1, 5), 0)
+    yamap_push_obj(wid, ywPosCreate(2, 5), 1)
+    print("boos 0 dead")
+    return 2
 }
 
 function boss0(wid, tuple)
@@ -129,11 +142,13 @@ function mod_init(mod)
 
     let wid = yeCreateArray(mod, "starting_widget")
     yeCreateFunction(can_upshoot, mod, "can_upshoot")
+    yeCreateFunction(can_longjmp, mod, "can_longjmp")
     yeCreateFunction(boss0, mod, "boss0")
+    yeCreateFunction(boss0_dead, mod, "boss0_dead")
     yeCreateFunction(bullet, mod, "bullet")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
-    wid.setAt("map", "lvl0")
+    wid.setAt("map", "lvl10")
     wid.setAt("life-bar", 1)
     let jmp_sprites = yeCreateArray(wid, "pc-jmp-sprites")
     jmp_sprites.push("./guy-jmp.png")

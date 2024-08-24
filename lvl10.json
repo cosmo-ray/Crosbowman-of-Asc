@@ -1,10 +1,15 @@
 {
     "size": [40, 60],
+    "objs": [
+	["door", ["amap.next", [39, 8]]],
+	["upshoot", ["usoa.can_longjmp"]]
+    ],
+    "next": "lvl0",
     "boss": {
 	"path": ["threeformsPJ2.png", [0, 0, 64, 128]],
-	"life": 50,
+	"life": 1,
 	"action": "usoa.boss0",
-	"win": "amap.win",
+	"win": "usoa.boss0_dead",
 	"pos": [100, 20]
     },
     "monsters": {
