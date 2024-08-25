@@ -1,8 +1,8 @@
 {
-    "size": [40, 60],
+    "size": [40, 20],
     "objs": [
-	["door", ["amap.next", [4, 40]]],
-	["upshoot", ["usoa.add_jmp_power"]]
+	["door", ["amap.next", [4, 8]]],
+	["upshoot", ["usoa.can_upshoot"]]
     ],
     "objs_condition": [null, ["!exist", "usoa.starting_widget.can_upshoot"]],
     "move_objs": [1],

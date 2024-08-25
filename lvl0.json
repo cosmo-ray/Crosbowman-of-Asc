@@ -4,8 +4,10 @@
     "'": "rgba: 127 127 127 100",
     "objs": [
 	["door", "amap.next"],
-	["door", "amap.next1"]
+	["door", "amap.next1"],
+	["door", "amap.next2"]
     ],
     "next": "lvl01",
-    "next1": "lvl10"
+    "next1": "lvl10",
+    "next2": "lvl20"
 }

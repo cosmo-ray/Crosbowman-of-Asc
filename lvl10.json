@@ -1,20 +1,21 @@
 {
-    "size": [40, 60],
+    "size": [40, 20],
     "objs": [
 	["door", ["amap.next", [39, 8]]],
 	["upshoot", ["usoa.can_longjmp"]]
     ],
     "next": "lvl0",
+    "move_objs": [1],
     "boss": {
 	"path": ["threeformsPJ2.png", [0, 0, 64, 128]],
-	"life": 1,
+	"life": 30,
 	"action": "usoa.boss0",
 	"win": "usoa.boss0_dead",
 	"pos": [100, 20]
     },
     "monsters": {
 	"p": {
-	    "life": 5,
+	    "life": 1,
 	    "action": "usoa.bullet",
 	    "img": "uwu-head"
 	}
