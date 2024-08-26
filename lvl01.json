@@ -2,7 +2,8 @@
     "size": [40, 20],
     "objs": [
 	["door", ["amap.next", [4, 8]]],
-	["upshoot", ["usoa.can_upshoot"]]
+	["upshoot", ["usoa.can_upshoot"]],
+	["door", ["amap.next1"]]
     ],
     "objs_condition": [null, ["!exist", "usoa.starting_widget.can_upshoot"]],
     "move_objs": [1],
@@ -13,5 +14,6 @@
 	    "img": "vodeo-monster"
 	},
     },
-    "next": "lvl0"
+    "next": "lvl0",
+    "next1": "lvl02"
 }
