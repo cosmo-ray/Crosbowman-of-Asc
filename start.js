@@ -19,6 +19,7 @@ function can_longjmp(wid)
 {
     let pc = wid.get("pc")
     pc.setAt("jmp-power", 10)
+    return 2
 }
 
 function can_upshoot(wid)
