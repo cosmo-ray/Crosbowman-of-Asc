@@ -15,17 +15,33 @@
 const BOSS_METADATA = 10
 const BOSS_TIMER_IDX = 0
 
+const COOK_HEAD = `
+   /-----\\
+   | | | |
+   | | | |
+   | | | |
+   -     \\
+ /       \\\\
+  --     \\\\\\
+   '    |
+    ----
+`
+
 function can_longjmp(wid)
 {
     let pc = wid.get("pc")
+    y_set_head(COOK_HEAD)
     pc.setAt("jmp-power", 10)
-    return 2
+    y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "You can now jump longer")
+    return 2 | 0x10
 }
 
 function can_upshoot(wid)
 {
+    ygGet("stop-screen.y_set_head").call(COOK_HEAD)
     wid.setAt("can_upshoot", 1)
-    return 2
+    y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "You can now upshoot, also some block might be destructible")
+    return 0x12
 }
 
 function menu_action(wid, events)
@@ -167,5 +183,6 @@ function mod_init(mod)
 
     let on_callbacks = yeCreateArray(wid, "on")
     yeCreateFunction(on_esc, on_callbacks, "esc")
+
     return mod
 }
