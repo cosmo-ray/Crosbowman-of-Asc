@@ -27,6 +27,42 @@ const COOK_HEAD = `
     ----
 `
 
+function lvl_up(wid)
+{
+    let rand = yuiRand() & 3
+    let pc = wid.get("pc")
+    let old_pc = yeCreateCopy(pc)
+    let lvl_up_sts = "lvl up              \n"
+    if (pc.geti("xp") > 32) {
+	pc.addAt("max_life", 1)
+	pc.get("stats").addAt("strength", 1)
+	pc.get("stats").addAt("agility", 1)
+    }
+    switch (rand) {
+    case 0:
+	pc.addAt("max_life", 1)
+	pc.get("stats").addAt("strength", 1)
+	pc.get("stats").addAt("agility", 1)
+	break;
+    case 1:
+	pc.get("stats").addAt("agility", 1)
+	break;
+    case 2:
+	pc.get("stats").addAt("strength", 1)
+	break;
+    case 3:
+	pc.addAt("max_life", 4)
+	break;
+    }
+    lvl_up_sts += "got " + (pc.geti("max_life") - old_pc.geti("max_life")) + " life\n"
+    lvl_up_sts += "got " + (pc.get("stats").geti("strength") - old_pc.get("stats").geti("strength")) + " strength\n"
+    lvl_up_sts += "got " + (pc.get("stats").geti("strength") - old_pc.get("stats").geti("strength")) + " agility"
+    wid.get("next-lvl").mult(2)
+    pc.setAt("life", pc.geti("max_life"))
+    y_set_head(COOK_HEAD)
+    y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), lvl_up_sts)
+}
+
 function can_longjmp(wid)
 {
     let pc = wid.get("pc")
@@ -163,10 +199,12 @@ function mod_init(mod)
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(boss0_dead, mod, "boss0_dead")
     yeCreateFunction(bullet, mod, "bullet")
+    yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
     wid.setAt("map", "lvl0")
     wid.setAt("life-bar", 1)
+    wid.setAt("next-lvl", 4)
     let jmp_sprites = yeCreateArray(wid, "pc-jmp-sprites")
     jmp_sprites.push("./guy-jmp.png")
     let punch_sprites = yeCreateArray(wid, "pc-punch-sprites")

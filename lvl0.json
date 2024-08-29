@@ -7,6 +7,13 @@
 	["door", "amap.next1"],
 	["door", "amap.next2"]
     ],
+    "monsters": {
+	"v": {
+	    "life": 5,
+	    "action": ["amap.mons_mv.left_right", 200],
+	    "img": "vodeo-monster"
+	},
+    },
     "next": "lvl01",
     "next1": "lvl10",
     "next2": "lvl20"
