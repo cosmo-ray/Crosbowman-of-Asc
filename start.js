@@ -45,10 +45,10 @@ function lvl_up(wid)
 	pc.get("stats").addAt("agility", 1)
 	break;
     case 1:
-	pc.get("stats").addAt("agility", 1)
+	pc.get("stats").addAt("agility", 2)
 	break;
     case 2:
-	pc.get("stats").addAt("strength", 1)
+	pc.get("stats").addAt("strength", 2)
 	break;
     case 3:
 	pc.addAt("max_life", 4)
@@ -56,7 +56,7 @@ function lvl_up(wid)
     }
     lvl_up_sts += "got " + (pc.geti("max_life") - old_pc.geti("max_life")) + " life\n"
     lvl_up_sts += "got " + (pc.get("stats").geti("strength") - old_pc.get("stats").geti("strength")) + " strength\n"
-    lvl_up_sts += "got " + (pc.get("stats").geti("strength") - old_pc.get("stats").geti("strength")) + " agility"
+    lvl_up_sts += "got " + (pc.get("stats").geti("agility") - old_pc.get("stats").geti("agility")) + " agility"
     wid.get("next-lvl").mult(2)
     pc.setAt("life", pc.geti("max_life"))
     y_set_head(COOK_HEAD)
@@ -108,6 +108,7 @@ function on_esc(wid)
     str.add(pc.geti("life")).add(" / ").add(pc.geti("max_life")).add("\n")
     str.add("xp: ").add(pc.geti("xp")).add("\n")
     str.add("atk: ").add(pc.get("stats").geti("strength"))
+    str.add("\nagility: ").add(pc.get("stats").geti("agility"))
     let t = ywCanvasNewTextExt(wid, pix0x + 50, pix0y + 50, str, "rgba: 255 255 255 255")
     menu_stuff.push(t)
 }
@@ -204,7 +205,7 @@ function mod_init(mod)
     wid.setAt("<type>", "amap")
     wid.setAt("map", "lvl0")
     wid.setAt("life-bar", 1)
-    wid.setAt("next-lvl", 4)
+    wid.setAt("next-lvl", 1)
     let jmp_sprites = yeCreateArray(wid, "pc-jmp-sprites")
     jmp_sprites.push("./guy-jmp.png")
     let punch_sprites = yeCreateArray(wid, "pc-punch-sprites")
