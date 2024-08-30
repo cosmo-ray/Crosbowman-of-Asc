@@ -27,6 +27,11 @@ const COOK_HEAD = `
     ----
 `
 
+function monster_dead(wid, mon)
+{
+    yamap_push_animation(wid, mon.get(1), "gamu", 200000)
+}
+
 function lvl_up(wid)
 {
     let rand = yuiRand() & 3
@@ -200,6 +205,8 @@ function mod_init(mod)
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(boss0_dead, mod, "boss0_dead")
     yeCreateFunction(bullet, mod, "bullet")
+    yeCreateFunction(monster_dead, mod, "monster_dead")
+
     yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
