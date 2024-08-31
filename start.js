@@ -130,8 +130,31 @@ function boss0_dead(wid, tuple)
 {
     yamap_push_obj(wid, ywPosCreate(1, 5), 0)
     yamap_push_obj(wid, ywPosCreate(2, 5), 1)
-    print("boos 0 dead")
     return 2
+}
+
+function boss1_next_form(wid, tuple)
+{
+    let boss_i = wid.get("_mi").get("boss")
+    let boss = tuple.get(0)
+    let boss_canel = boss.get(0)
+    boss_i.setAt("life", 20)
+    boss_i.setAt("action", "usoa.boss1")
+    let bpos = ywCanvasObjPos(boss_canel) // get boss pos
+    let rect = ywRectCreateInts(94, 0, 108, 128)
+
+    let boss_new_canel = ywCanvasNewImg(wid, ywPosX(bpos), ywPosY(bpos),
+				   "./threeformsPJ2.png", rect)
+    yeCreateIntAt(TYPE_BOSS, boss_new_canel, "amap-t", YCANVAS_UDATA_IDX)
+
+    ywCanvasRemoveObj(wid, boss_canel)
+    boss.setAt(0, boss_new_canel)
+    return 0
+}
+
+function boss1(wid, tuple)
+{
+    print("boss 1 callback")
 }
 
 function boss0(wid, tuple)
@@ -203,14 +226,16 @@ function mod_init(mod)
     yeCreateFunction(can_upshoot, mod, "can_upshoot")
     yeCreateFunction(can_longjmp, mod, "can_longjmp")
     yeCreateFunction(boss0, mod, "boss0")
+    yeCreateFunction(boss1, mod, "boss1")
     yeCreateFunction(boss0_dead, mod, "boss0_dead")
+    yeCreateFunction(boss1_next_form, mod, "boss1_next_form")
     yeCreateFunction(bullet, mod, "bullet")
     yeCreateFunction(monster_dead, mod, "monster_dead")
 
     yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
-    wid.setAt("map", "lvl0")
+    wid.setAt("map", "lvl20")
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     let jmp_sprites = yeCreateArray(wid, "pc-jmp-sprites")
