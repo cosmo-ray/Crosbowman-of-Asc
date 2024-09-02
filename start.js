@@ -12,6 +12,7 @@
 //
 //  0. You just DO WHAT THE FUCK YOU WANT TO.
 
+const ANIM_METADATA = 10
 const BOSS_METADATA = 10
 const BOSS_TIMER_IDX = 0
 
@@ -27,9 +28,39 @@ const COOK_HEAD = `
     ----
 `
 
+
+function monster_dead_next(wid, anim_info)
+{
+    let garbage_colector = yeCreateArray()
+    let state = anim_info.geti(ANIM_METADATA)
+    state += 1
+    if (state > 12) {
+ 	return 2
+    }
+    anim_info.setAt(ANIM_METADATA, state)
+    let rect = ywRectCreateInts(24 + 31 * state, 147, 28, 28)
+    let explosion_i = ywTextureNewImg("./M484ExplosionSet2.png", rect, garbage_colector);
+    let pos = ywCanvasObjPos(anim_info.get(0))
+
+    anim_info.setAt(1, 100000)
+    let a = ywCanvasNewImgFromTexture(wid, ywPosX(pos), ywPosY(pos), explosion_i)
+    yeCreateIntAt(TYPE_ANIMATION, a, "amap-t", YCANVAS_UDATA_IDX)
+
+    ywCanvasRemoveObj(wid, anim_info.get(0))
+    anim_info.setAt(0, a)
+    print("===== monster_dead_next =====")
+    yePrint(anim_info)
+    return 0
+}
+
 function monster_dead(wid, mon)
 {
-    yamap_push_animation(wid, mon.get(1), "gamu", 200000)
+    let rect = ywRectCreateInts(24, 148, 24, 24)
+    // not sure the textures are garbage collected, so an array is use to store them
+    let garbage_colector = yeCreateArray()
+    let explosion_0 = ywTextureNewImg("./M484ExplosionSet2.png", rect, garbage_colector);
+    let anime_info = yamap_push_animation(wid, mon.get(1), explosion_0, 200000, yeCreateFunction("monster_dead_next"))
+    anime_info.setAt(ANIM_METADATA, 0)
 }
 
 function lvl_up(wid)
@@ -235,7 +266,7 @@ function mod_init(mod)
     yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "amap")
-    wid.setAt("map", "lvl20")
+    wid.setAt("map", "lvl0")
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     let jmp_sprites = yeCreateArray(wid, "pc-jmp-sprites")
