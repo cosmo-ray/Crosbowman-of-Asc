@@ -253,6 +253,8 @@ function mod_init(mod)
     ygAddModule(Y_MOD_YIRL, mod, "amap")
     mod.setAt("Name", "usoa")
 
+    // this is so wasm module can work
+    ygReCreateInt("mods_config.smart_cobject.no_submodule", 1);
     let wid = yeCreateArray(mod, "starting_widget")
     yeCreateFunction(can_upshoot, mod, "can_upshoot")
     yeCreateFunction(can_longjmp, mod, "can_longjmp")
