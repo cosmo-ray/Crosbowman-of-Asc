@@ -12,3 +12,8 @@ CC-BY 3.0
 foods.png:
 https://opengameart.org/content/more-lpc-meals
 CC-By-SA 3.0 or GPL 3.0
+
+lpc-meals:
+https://opengameart.org/content/lpc-meals
+CC-By-SA 3.0 or GPL3.0
+see [credirs](lpc-meals/CREDITS-meals.txt) for more infos
