@@ -286,10 +286,16 @@ function mod_init(mod)
 
     let textures = yeCreateArray(wid, "extra-textures")
     textures.setAt("upshoot", "up-shoot.png")
+
     let bullet_array = yeCreateArray()
     bullet_array.setAt(0, "M484ExplosionSet2.png")
     ywRectCreateInts(24, 31, 28, 28, bullet_array)
     textures.setAt("bullet", bullet_array)
+
+    let food_array = yeCreateArray()
+    food_array.setAt(0, "foods.png")
+    ywRectCreateInts(0, 0, 28, 28, food_array)
+    textures.setAt("ramen", food_array)
 
     let on_callbacks = yeCreateArray(wid, "on")
     yeCreateFunction(on_esc, on_callbacks, "esc")
