@@ -7,6 +7,7 @@
 	"v": {
 	    "life": 5,
 	    "action": ["amap.mons_mv.left_right", 200],
+	    "dead": "usoa.monster_dead",
 	    "img": "vodeo-monster"
 	},
     },

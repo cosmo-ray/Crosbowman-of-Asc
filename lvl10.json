@@ -17,7 +17,7 @@
 	"p": {
 	    "life": 1,
 	    "action": "usoa.bullet",
-	    "img": "uwu-head"
+	    "img": "bullet"
 	}
     },
 
