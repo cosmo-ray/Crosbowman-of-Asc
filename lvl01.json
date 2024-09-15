@@ -5,7 +5,7 @@
 	["upshoot", ["usoa.can_upshoot"]],
 	["door", ["amap.next1"]]
     ],
-    "objs_condition": [null, ["!exist", "usoa.starting_widget.can_upshoot"]],
+    "objs_condition": [null, ["!exist", "usoa.running_wid.can_upshoot"]],
     "move_objs": [1],
     "monsters": {
 	"v": {

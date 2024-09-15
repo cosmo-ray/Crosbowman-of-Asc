@@ -343,6 +343,7 @@ function usoa_init(wid)
 			   dead_array, null)
     handler.get("txts").push(dead_array, "dead")
 
+    ygGet("usoa").setAt("running_wid", wid)
     let ret = ywidNewWidget(wid, "amap")
     return ret
 }
