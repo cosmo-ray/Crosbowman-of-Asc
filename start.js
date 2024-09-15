@@ -61,6 +61,7 @@ function monster_dead(wid, mon)
     let explosion_0 = ywTextureNewImg("./M484ExplosionSet2.png", rect, garbage_colector);
     let anime_info = yamap_push_animation(wid, mon.get(1), explosion_0, 200000, yeCreateFunction("monster_dead_next"))
     anime_info.setAt(ANIM_METADATA, 0)
+    return 2
 }
 
 function lvl_up(wid)
@@ -97,6 +98,7 @@ function lvl_up(wid)
     pc.setAt("life", pc.geti("max_life"))
     y_set_head(COOK_HEAD)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), lvl_up_sts)
+    return 1
 }
 
 function can_longjmp(wid)
@@ -185,7 +187,57 @@ function boss1_next_form(wid, tuple)
 
 function boss1(wid, tuple)
 {
-    print("boss 1 callback")
+    let boss = tuple.get(0)
+    let boss_canel = boss.get(0)
+    let metadata = boss.get(BOSS_METADATA)
+    const turn_timer = tuple.geti(1)
+    let mover = boss.get(1)
+    let pc = wid.get("_pc")
+    let pc_pos = pc.get(0)
+
+    if (!metadata) {
+	metadata = yeCreateArrayAt(boss, "boss metadata", BOSS_METADATA)
+	metadata.setAt(BOSS_TIMER_IDX, 0)
+    }
+    const boss_timer = metadata.geti(BOSS_TIMER_IDX)
+    let boss_pos = ywCanvasObjPos(boss_canel)
+
+    if (boss_timer < 4000000) {
+	y_move_set_xspeed(mover, 16)
+    } else if (boss_timer < 6000000) {
+	y_move_set_xspeed(mover, -16)
+    } else {
+	if (pc_pos.geti(0) < boss_pos.geti(0)) {
+	    y_move_set_xspeed(mover, -7)
+	} else if (pc_pos.geti(0) > boss_pos.geti(0)) {
+	    y_move_set_xspeed(mover, 7)
+	} else {
+	    y_move_set_xspeed(mover, 0)
+	}
+    }
+    // attack every 600000 us
+    if (boss_timer % 600000 > (boss_timer + turn_timer) % 600000) {
+	let boss_info = wid.get("_mi").get("boss")
+	let nb_attack = 2
+
+	print("life: ", boss_info.geti("life"))
+	if (boss_info.geti("life") < 20)
+	    nb_attack = 4
+	for (let i = 0; i < nb_attack; ++i) {
+	    let pos = i == 0 ? ywPosAddCopy(boss_pos, 80, 10) :
+		(i == 1 ? ywPosAddCopy(boss_pos, -20, 10) :
+		 (i == 2 ? ywPosAddCopy(boss_pos, 80, 40) :
+		  ywPosAddCopy(boss_pos, -20, 40)
+		 )
+		)
+	    let mon = yamap_push_monster(wid, pos, "p")
+	    let m_mover = mon.get("mover")
+	    y_move_set_xspeed(m_mover, (pc_pos.geti(0) - boss_pos.geti(0)) / 10)
+	    y_move_set_yspeed(m_mover, 20)
+	}
+    }
+    metadata.addAt(BOSS_TIMER_IDX, turn_timer)
+    y_move_obj(boss_canel, mover, turn_timer)
 }
 
 function boss0(wid, tuple)
@@ -220,9 +272,6 @@ function boss0(wid, tuple)
     }
     // attack every 600000 us
     if (boss_timer % 600000 > (boss_timer + turn_timer) % 600000) {
-	let monsters = wid.get("_monsters")
-	let textures = wid.get("textures")
-	let monster_info = wid.get("_mi").get("monsters")
 	let boss_info = wid.get("_mi").get("boss")
 	let nb_attack = 1
 
@@ -230,32 +279,82 @@ function boss0(wid, tuple)
 	if (boss_info.geti("life") < 20)
 	    nb_attack = 2
 	for (let i = 0; i < nb_attack; ++i) {
-	    let mon = yeCreateArray(monsters)
-	    yeCreateString("p", mon)
-	    let pos = yeCreateCopy(boss_pos, mon, "pos")
+	    let pos = yeCreateCopy(boss_pos)
 	    if (i == 0)
 		ywPosAddXY(pos, 80, 10)
 	    else
 		ywPosAddXY(pos, -20, 10)
-	    let m_mover = y_mover_new(mon, "mover")
+	    let mon = yamap_push_monster(wid, pos, "p")
+	    let m_mover = mon.get("mover")
 	    y_move_set_xspeed(m_mover, (pc_pos.geti(0) - boss_pos.geti(0)) / 10)
 	    y_move_set_yspeed(m_mover, 20)
-	    yamap_generate_monster_canvasobj(wid, textures, mon, monster_info,
-					     yeLen(monsters) - 1)
 	}
     }
     metadata.addAt(BOSS_TIMER_IDX, turn_timer)
     y_move_obj(boss_canel, mover, turn_timer)
 }
 
+function usoa_init(wid)
+{
+    let animations = yeCreateArray(wid, "animations")
+    let lancer_base = yeCreateArray()
+    let base = ywTextureNew(ywSizeCreate(48, 64), lancer_base, null)
+    let body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(0, 0, 32, 64),
+			       null, null)
+    let leg = ywTextureNewImg("lancer-base.png", ywRectCreateInts(64, 64, 32, 64),
+			      null, null)
+    ywTextureMergeTexture(body, base, null, null, ywRectCreateInts(16, 0, 32, 64))
+    ywTextureMergeTexture(leg, base, null, null, ywRectCreateInts(16, 0, 32, 64))
+
+    let handler = yGenericNewTexturesArray(wid, lancer_base, yeCreateArray(),
+					   ywPosCreate(0, 0), animations, "lancer")
+
+    let walk_array = yeCreateArray()
+
+    function add_walk_part(rect) {
+	let base = ywTextureNew(ywSizeCreate(48, 64), walk_array, null)
+	let body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(0, 0, 32, 64),
+				   null, null)
+	let leg = ywTextureNewImg("lancer-base.png", rect, null, null)
+	let spear = ywTextureNewImg("lancer-base.png", ywRectCreateInts(16, 128, 16, 64),
+				    null, null)
+	ywTextureMergeTexture(body, base, null, ywRectCreateInts(16, 0, 32, 64))
+	ywTextureMergeTexture(leg, base, null, ywRectCreateInts(16, 0, 32, 64))
+	ywTextureMergeTexture(spear, base, null, ywRectCreateInts(0, 0, 16, 64))
+    }
+
+    add_walk_part(ywRectCreateInts(96, 64, 32, 64))
+    add_walk_part(ywRectCreateInts(64, 128, 32, 64))
+    add_walk_part(ywRectCreateInts(32, 128, 32, 64))
+    add_walk_part(ywRectCreateInts(64, 128, 32, 64))
+
+    handler.get("txts").push(walk_array, "walk")
+
+    let dead_array = yeCreateArray()
+    body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(32, 0, 32, 64),
+			   dead_array, null)
+    body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(64, 0, 32, 64),
+			   dead_array, null)
+    body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(94, 0, 32, 64),
+			   dead_array, null)
+    body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(0, 64, 32, 64),
+			   dead_array, null)
+    body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(32, 64, 32, 64),
+			   dead_array, null)
+    handler.get("txts").push(dead_array, "dead")
+
+    let ret = ywidNewWidget(wid, "amap")
+    return ret
+}
+
 function mod_init(mod)
 {
+    let wid = ygInitWidgetModule(mod, "usoa", yeCreateFunction("usoa_init"))
     ygAddModule(Y_MOD_YIRL, mod, "amap")
     mod.setAt("Name", "usoa")
 
     // this is so wasm module can work
     ygReCreateInt("mods_config.smart_cobject.no_submodule", 1);
-    let wid = yeCreateArray(mod, "starting_widget")
     yeCreateFunction(can_upshoot, mod, "can_upshoot")
     yeCreateFunction(can_longjmp, mod, "can_longjmp")
     yeCreateFunction(boss0, mod, "boss0")
@@ -267,12 +366,15 @@ function mod_init(mod)
 
     yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("background", "rgba: 255 255 255 255")
-    wid.setAt("<type>", "amap")
-    wid.setAt("map", "lvl02")
+    wid.setAt("<type>", "usoa")
+    wid.setAt("map", "lvl0")
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     wid.setAt("#-yblock", 1)
     wid.setAt("block-up", 1)
+    wid.setAt("attack-sprite", "./ketchup.png")
+    wid.setAt("attack-sprite-size", "half")
+    wid.setAt("attack-sprite-threshold", ywPosCreate(0, 5))
     let jmp_sprites = yeCreateArray(wid, "pc-jmp-sprites")
     jmp_sprites.push("./guy-jmp.png")
     let punch_sprites = yeCreateArray(wid, "pc-punch-sprites")
