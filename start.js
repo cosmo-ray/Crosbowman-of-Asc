@@ -101,6 +101,44 @@ function lvl_up(wid)
     return 1
 }
 
+function armor(wid)
+{
+    print("armor")
+    let pc = wid.get("pc")
+    let armor = pc.get("armor")
+
+    if (!armor) {
+	armor = yeCreateArray(pc, "armor")
+    }
+    let protect = armor.geti("protect") + 1
+    armor.setAt("protect", protect)
+    let pc_handler = yeGet(wid, "pc_handler")
+    let ignore = yeCreateArray()
+    ignore.setAt(0, "wid")
+    let textures = pc_handler.get("txts")
+    let base = textures.get("base")
+
+    if (protect > 3 || protect < 1)
+	return 2
+    let armor_txt = ywTextureNewImg("jean.png", ywRectCreateInts((32 * (protect - 1)), 64, 32, 32),
+				    null, null)
+
+    for (b of base) {
+	    ywTextureMergeTexture(armor_txt, b, null, null, null)
+    }
+    for (d of textures.get("dash")) {
+	    ywTextureMergeTexture(armor_txt, d, null, null, null)
+    }
+    for (j of textures.get("jmp")) {
+	    ywTextureMergeTexture(armor_txt, j, null, null, null)
+    }
+    for (p of textures.get("punch")) {
+	    ywTextureMergeTexture(armor_txt, p, null, null, null)
+    }
+    yePrint2(pc_handler.get("txts"), ignore)
+    return 2
+}
+
 function can_longjmp(wid)
 {
     let pc = wid.get("pc")
@@ -358,6 +396,7 @@ function mod_init(mod)
     ygReCreateInt("mods_config.smart_cobject.no_submodule", 1);
     yeCreateFunction(can_upshoot, mod, "can_upshoot")
     yeCreateFunction(can_longjmp, mod, "can_longjmp")
+    yeCreateFunction(armor, mod, "armor")
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(boss1, mod, "boss1")
     yeCreateFunction(boss0_dead, mod, "boss0_dead")

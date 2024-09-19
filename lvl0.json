@@ -5,8 +5,10 @@
     "objs": [
 	["door", "amap.next"],
 	["door", "amap.next1"],
-	["door", "amap.next2"]
+	["door", "amap.next2"],
+	["upshoot", ["usoa.armor"]]
     ],
+    "move_objs": [3],
     "monsters": {
 	"v": {
 	    "life": 5,
