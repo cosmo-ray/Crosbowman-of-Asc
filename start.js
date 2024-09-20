@@ -17,14 +17,14 @@ const BOSS_METADATA = 10
 const BOSS_TIMER_IDX = 0
 
 const COOK_HEAD = `
-   /-----\\
-   | | | |
-   | | | |
-   | | | |
+     /\\
+    /  \\
+   /  | \\
+__/ | | |\\__
    -     \\
  /       \\\\
   --     \\\\\\
-   '    |
+  |/    |
     ----
 `
 
@@ -453,6 +453,9 @@ function mod_init(mod)
     food_array.setAt(0, "foods.png")
     ywRectCreateInts(0, 0, 28, 28, food_array)
     textures.setAt("ramen", food_array)
+
+    textures.setAt("fly", "fly.png")
+    textures.setAt("fly2", "fly2.png")
 
     let on_callbacks = yeCreateArray(wid, "on")
     yeCreateFunction(on_esc, on_callbacks, "esc")

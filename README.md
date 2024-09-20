@@ -17,3 +17,17 @@ lpc-meals:
 https://opengameart.org/content/lpc-meals
 CC-By-SA 3.0 or GPL3.0
 see [credirs](lpc-meals/CREDITS-meals.txt) for more infos
+
+
+art made be me:
+Used art:
+- fly/fly2
+- jean.png
+- lancer-base.png
+
+unsed art are also made by me:
+(which might be remove from this repo at some point, but you could get them form commit tree)
+- guy-*.png
+- ketchup*.png
+
+All art by me are in CC0.
