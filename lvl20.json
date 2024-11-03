@@ -3,7 +3,7 @@
     "#": "rgba: 127 127 127 200",
     "'": "rgba: 127 127 127 100",
     "objs": [
-	["door", "amap.next"],
+	["door", "amap.next"]
     ],
     "boss": {
 	"path": ["threeformsPJ2.png", [0, 0, 64, 128]],

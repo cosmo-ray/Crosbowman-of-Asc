@@ -2,7 +2,9 @@
     "size": [40, 20],
     "objs": [
 	["door", ["amap.next", [13, 0]]],
+	["upshoot", ["usoa.armor"]]
     ],
+    "move_objs": [1],
     "monsters": {
 	"v": {
 	    "life": 5,

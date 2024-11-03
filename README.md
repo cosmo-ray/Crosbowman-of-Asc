@@ -22,7 +22,7 @@ see [credirs](lpc-meals/CREDITS-meals.txt) for more infos
 art made be me:
 Used art:
 - fly/fly2
-- jean.png
+- jean*.png
 - lancer-base.png
 
 unsed art are also made by me:
