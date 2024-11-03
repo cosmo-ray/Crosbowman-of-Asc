@@ -6,6 +6,8 @@
 	["door", ["amap.next1"]]
     ],
     "objs_condition": [null, ["!exist", "usoa.running_wid.can_upshoot"]],
+    "background": "cave-background-assets/1.png",
+    "background_auto_scale": true,
     "move_objs": [1],
     "monsters": {
 	"v": {

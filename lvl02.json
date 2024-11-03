@@ -1,10 +1,12 @@
 {
     "size": [40, 20],
     "objs": [
-	["door", ["amap.next", [13, 0]]],
+	["door", ["amap.next", [13, 2]]],
 	["upshoot", ["usoa.armor"]]
     ],
     "move_objs": [1],
+    "background": "cave-background-assets/1.png",
+    "background_auto_scale": true,
     "monsters": {
 	"v": {
 	    "life": 5,
