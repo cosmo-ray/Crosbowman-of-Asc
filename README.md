@@ -18,6 +18,9 @@ https://opengameart.org/content/lpc-meals
 CC-By-SA 3.0 or GPL3.0
 see [credirs](lpc-meals/CREDITS-meals.txt) for more infos
 
+cave-background-assets/*:
+https://slashdashgamesstudio.itch.io/cave-background-assets
+Creative Commons Attribution v4.0 International
 
 art made be me:
 Used art:
