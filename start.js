@@ -16,7 +16,19 @@ const ANIM_METADATA = 10
 const BOSS_METADATA = 10
 const BOSS_TIMER_IDX = 0
 
-const COOK_HEAD = `
+const GUARD_HEAD = `
+    ____
+   |####|
+  /#####\\
+ |#-  ###\\
+ //      \\
+  --     /
+  |/    |
+    ----
+`
+
+
+const MAGE_HEAD = `
      /\\
     /  \\
    /  | \\
@@ -96,7 +108,7 @@ function lvl_up(wid)
     lvl_up_sts += "got " + (pc.get("stats").geti("agility") - old_pc.get("stats").geti("agility")) + " agility"
     wid.get("next-lvl").mult(2)
     pc.setAt("life", pc.geti("max_life"))
-    y_set_head(COOK_HEAD)
+    y_set_head(MAGE_HEAD)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), lvl_up_sts)
     return 1
 }
@@ -139,10 +151,24 @@ function armor(wid)
     return 2
 }
 
+
+function talk(wid, obj, txt)
+{
+    if (!obj.get("timer"))
+	yeCreateInt(2000005, obj, "timer")
+    else
+	yeAddInt(obj.get("timer"), ywidGetTurnTimer())
+
+    if (obj.geti("timer") > 2000000) {
+	y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), txt.s())
+	obj.setAt("timer", 0)
+    }
+}
+
 function can_longjmp(wid)
 {
     let pc = wid.get("pc")
-    y_set_head(COOK_HEAD)
+    y_set_head(MAGE_HEAD)
     pc.setAt("jmp-power", 10)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "You can now jump longer")
     return 2 | 0x10
@@ -150,7 +176,7 @@ function can_longjmp(wid)
 
 function can_upshoot(wid)
 {
-    ygGet("stop-screen.y_set_head").call(COOK_HEAD)
+    ygGet("stop-screen.y_set_head").call(MAGE_HEAD)
     wid.setAt("can_upshoot", 1)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "You can now upshoot, also some block might be destructible")
     return 0x12
@@ -396,6 +422,7 @@ function mod_init(mod)
     ygReCreateInt("mods_config.smart_cobject.no_submodule", 1);
     yeCreateFunction(can_upshoot, mod, "can_upshoot")
     yeCreateFunction(can_longjmp, mod, "can_longjmp")
+    yeCreateFunction(talk, mod, "talk")
     yeCreateFunction(armor, mod, "armor")
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(boss1, mod, "boss1")
@@ -408,7 +435,7 @@ function mod_init(mod)
     wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "usoa")
     ywRectCreateInts(8, 0, 16, 32, wid, "pc-collision-projection")
-    wid.setAt("map", "lvl0")
+    wid.setAt("map", "intro")
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     wid.setAt("#-yblock", 1)

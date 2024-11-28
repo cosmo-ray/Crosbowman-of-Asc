@@ -1,0 +1,11 @@
+{
+    "size": [45, 15],
+    "'": "rgba: 127 127 127 100",
+    "objs": [
+	["door", "amap.next"],
+	["fly", ["usoa.talk", "bla bla bla, we are the resistance, because mage attack us"]]
+    ],
+    "background": "cave-background-assets/1.png",
+    "background_auto_scale": true,
+    "next": "lvl0",
+}
