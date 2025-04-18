@@ -162,6 +162,7 @@ function talk(wid, obj, txt)
     if (obj.geti("timer") > 2000000) {
 	y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), txt.s())
 	obj.setAt("timer", 0)
+	yamap_pc_stop(wid)
     }
 }
 
