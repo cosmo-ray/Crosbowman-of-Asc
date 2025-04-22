@@ -25,6 +25,10 @@ Creative Commons Attribution v4.0 International
 img/plates.png:
 CC0 found on opengameart by vk
 
+flag_captured.png:
+CC0
+https://opengameart.org/content/flag-captured-uncaptured
+
 art made be me:
 Used art:
 - fly/fly2
