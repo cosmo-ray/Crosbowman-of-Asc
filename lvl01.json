@@ -17,6 +17,10 @@
 	    "img": "fly"
 	},
     },
+    "=": {
+	"path": "img/plates.png",
+	"src_rect": [32, 0, 32, 32]
+    },
     "next": "lvl0",
     "next1": "lvl02"
 }

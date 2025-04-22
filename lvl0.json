@@ -1,6 +1,9 @@
 {
     "size": [45, 15],
-    "#": "rgba: 127 127 127 200",
+    "#": {
+	"path": "img/plates.png",
+	"src_rect": [0, 0, 32, 32]
+    },
     "'": "rgba: 127 127 127 100",
     "objs": [
 	["door", "amap.next"],
@@ -9,6 +12,7 @@
     ],
     "background": "cave-background-assets/1.png",
     "background_auto_scale": true,
+    "F": ["./flag_captured.png"],
     "monsters": {
 	"v": {
 	    "life": 5,

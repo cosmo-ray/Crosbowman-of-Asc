@@ -22,6 +22,9 @@ cave-background-assets/*:
 https://slashdashgamesstudio.itch.io/cave-background-assets
 Creative Commons Attribution v4.0 International
 
+img/plates.png:
+CC0 found on opengameart by vk
+
 art made be me:
 Used art:
 - fly/fly2
