@@ -9,7 +9,13 @@
     "'": "rgba: 127 127 127 100",
     "objs": [
 	["door", "amap.next"],
-	["fly", ["usoa.talk", "bla bla bla, we are the resistance, because mage attack us"]]
+	["mage", ["usoa.talk", ["By striking the capital, we could deal a dealy blow to",
+				"Rubion invader", "I know you are very good with crossbow",
+				"So I've enchant here", "I know you might not trust me yet",
+				"but I can't stand the way my nation invade Ask",
+				"in the name of freedom, and have commit sure atrocity",
+				"durring the ocupation"], "mage"]
+	]
     ],
     "background": "cave-background-assets/1.png",
     "background_auto_scale": true,

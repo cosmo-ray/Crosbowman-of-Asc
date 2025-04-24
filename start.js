@@ -33,11 +33,11 @@ const MAGE_HEAD = `
     /  \\
    /  | \\
 __/ | | |\\__
-   -     \\
- /       \\\\
-  --     \\\\\\
-  |/    |
-    ----
+   ^   \\\\\\\\
+ /      \\\\\\\\
+   _     \\\\\\\\
+         \\\\\\\\\\\\
+     -- \\\\\\\\\\\\\\
 `
 
 
@@ -152,15 +152,29 @@ function armor(wid)
 }
 
 
-function talk(wid, obj, txt)
+function talk(wid, obj, txt, who)
 {
     if (!obj.get("timer"))
 	yeCreateInt(2000005, obj, "timer")
     else
 	yeAddInt(obj.get("timer"), ywidGetTurnTimer())
 
+    let txt_s = null
+    if (txt.type() == YSTRING) {
+	txt_s = txt.s
+    } else {
+	txt_s = ""
+	for (s of txt) {
+	    txt_s = txt_s + s.s() + "\n"
+	}
+    }
     if (obj.geti("timer") > 2000000) {
-	y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), txt.s())
+	print("who: ", who)
+	yePrint(who)
+	if (yeType(who) == YSTRING && who.s() == "mage") {
+	    y_set_head(MAGE_HEAD)
+	}
+	y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), txt_s)
 	obj.setAt("timer", 0)
 	yamap_pc_stop(wid)
     }
@@ -484,6 +498,7 @@ function mod_init(mod)
 
     textures.setAt("fly", "fly.png")
     textures.setAt("fly2", "fly2.png")
+    textures.setAt("mage", "mage.png")
 
     let on_callbacks = yeCreateArray(wid, "on")
     yeCreateFunction(on_esc, on_callbacks, "esc")
