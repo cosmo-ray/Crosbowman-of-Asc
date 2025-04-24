@@ -1,12 +1,12 @@
 {
-    "size": [40, 20],
+    "size": [40, 10],
     "objs": [
 	["door", ["amap.next", [4, 8]]],
 	["upshoot", ["usoa.can_upshoot"]],
 	["door", ["amap.next1"]]
     ],
     "objs_condition": [null, ["!exist", "usoa.running_wid.can_upshoot"]],
-    "background": "cave-background-assets/1.png",
+    "background": "img/old-dark-castle-interior-background.png",
     "background_auto_scale": true,
     "move_objs": [1],
     "monsters": {
@@ -17,6 +17,7 @@
 	    "img": "fly"
 	},
     },
+    "#": "rgba: 0 0 0 10",
     "=": {
 	"path": "img/plates.png",
 	"src_rect": [32, 0, 32, 32]

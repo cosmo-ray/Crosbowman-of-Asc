@@ -30,7 +30,12 @@ CC0
 https://opengameart.org/content/flag-captured-uncaptured
 
 img/forest-bg.png:
-see [license](img/forest-bg-license.txt)
+made by: https://edermunizlicense.carrd.co/ https://edermunizz.itch.io/
+use it's own [license](img/forest-bg-license.txt)
+
+img/old-dark-castle-interior-background.png:
+CC0
+https://ansimuz.itch.io/gothicvania-patreon-collection
 
 art made be me:
 Used art:
