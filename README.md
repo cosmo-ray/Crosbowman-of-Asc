@@ -29,6 +29,9 @@ flag_captured.png:
 CC0
 https://opengameart.org/content/flag-captured-uncaptured
 
+img/forest-bg.png:
+see [license](img/forest-bg-license.txt)
+
 art made be me:
 Used art:
 - fly/fly2

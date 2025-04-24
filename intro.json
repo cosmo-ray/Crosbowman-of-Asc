@@ -17,7 +17,7 @@
 				"durring the ocupation"], "mage"]
 	]
     ],
-    "background": "cave-background-assets/1.png",
+    "background": "img/forest-bg.png",
     "background_auto_scale": true,
     "next": "lvl0",
 }
