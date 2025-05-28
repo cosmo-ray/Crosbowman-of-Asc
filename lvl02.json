@@ -1,12 +1,13 @@
 {
-    "size": [40, 20],
+    "size": [40, 14],
     "objs": [
 	["door", ["amap.next", [13, 2]]],
 	["upshoot", ["usoa.armor"]]
     ],
     "move_objs": [1],
-    "background": "cave-background-assets/1.png",
+    "background": "img/old-dark-castle-interior-background.png",
     "background_auto_scale": true,
+    "no-fall": true,
     "monsters": {
 	"v": {
 	    "life": 5,

@@ -1,0 +1,26 @@
+{
+    "size": [45, 19],
+    "no-fall": true,
+    "#": "rgba: 0 0 0 10",
+    "F": ["./flag_captured.png", [[0, 0, 32, 32], [32, 0, 32, 32],
+				  [64, 0, 32, 32]]],
+    "'": "rgba: 127 127 127 100",
+    "objs": [
+	["mage", ["usoa.talk", [
+	    "Look around you, it's a nice forest right",
+	    "I've made it just for you",
+	    "Hope you, enjoy it, because you wont leave it",
+	    "Thanks for helping me",
+	    "You was ammusing to watch",
+	    "and funnyer",
+	    "anyway, I might visite you someday,",
+	    "but I tend to get bored by my toy fast enough,",
+	    "so don't count on it too much",
+	    "have fun in this place with nothing to do",
+	    "and no exit"],
+		  "mage"]
+	]
+    ],
+    "background": "img/forest-bg.png",
+    "background_auto_scale": true
+}

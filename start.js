@@ -238,6 +238,13 @@ function bullet(wid, tuple)
     y_move_obj(bullet.get(3), mover, turn_timer)
 }
 
+function boss_push_obj0(wid, tuple)
+{
+    yamap_push_obj(wid, ywPosCreate(1, 5), 0)
+    return 2
+}
+
+
 function boss0_dead(wid, tuple)
 {
     yamap_push_obj(wid, ywPosCreate(1, 5), 0)
@@ -252,6 +259,7 @@ function boss1_next_form(wid, tuple)
     let boss_canel = boss.get(0)
     boss_i.setAt("life", 20)
     boss_i.setAt("action", "usoa.boss1")
+    boss_i.setAt("win", "usoa.boss_push_obj0")
     let bpos = ywCanvasObjPos(boss_canel) // get boss pos
     let rect = ywRectCreateInts(94, 0, 108, 128)
 
@@ -424,6 +432,7 @@ function usoa_init(wid)
 
     ygGet("usoa").setAt("running_wid", wid)
     let ret = ywidNewWidget(wid, "amap")
+    y_set_talk_rect_style("rgba: 200 200 200 200", 3)
     return ret
 }
 
@@ -442,6 +451,7 @@ function mod_init(mod)
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(boss1, mod, "boss1")
     yeCreateFunction(boss0_dead, mod, "boss0_dead")
+    yeCreateFunction(boss_push_obj0, mod, "boss_push_obj0")
     yeCreateFunction(boss1_next_form, mod, "boss1_next_form")
     yeCreateFunction(bullet, mod, "bullet")
     yeCreateFunction(monster_dead, mod, "monster_dead")
@@ -451,6 +461,7 @@ function mod_init(mod)
     wid.setAt("<type>", "usoa")
     ywRectCreateInts(8, 0, 16, 32, wid, "pc-collision-projection")
     wid.setAt("map", "intro")
+    //wid.setAt("map", "lvl02")
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     wid.setAt("#-yblock", 1)
