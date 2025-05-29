@@ -81,7 +81,7 @@ function lvl_up(wid)
     let rand = yuiRand() & 3
     let pc = wid.get("pc")
     let old_pc = yeCreateCopy(pc)
-    let lvl_up_sts = "lvl up              \n"
+    let lvl_up_sts = "I feel stronger !\nlvl up              \n"
     if (pc.geti("xp") > 32) {
 	pc.addAt("max_life", 1)
 	pc.get("stats").addAt("strength", 1)
@@ -108,8 +108,9 @@ function lvl_up(wid)
     lvl_up_sts += "got " + (pc.get("stats").geti("agility") - old_pc.get("stats").geti("agility")) + " agility"
     wid.get("next-lvl").mult(2)
     pc.setAt("life", pc.geti("max_life"))
-    y_set_head(MAGE_HEAD)
+    y_set_head(GUARD_HEAD)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), lvl_up_sts)
+    y_set_head(MAGE_HEAD)
     return 1
 }
 
@@ -148,6 +149,9 @@ function armor(wid)
 	    ywTextureMergeTexture(armor_txt, p, null, null, null)
     }
     yePrint2(pc_handler.get("txts"), ignore)
+    y_set_head(GUARD_HEAD)
+    y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "some nice armor, I could use")
+    y_set_head(MAGE_HEAD)
     return 2
 }
 
