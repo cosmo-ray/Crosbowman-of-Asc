@@ -244,7 +244,7 @@ function bullet(wid, tuple)
 
 function boss_push_obj0(wid, tuple)
 {
-    yamap_push_obj(wid, ywPosCreate(1, 5), 0)
+    yamap_push_obj(wid, ywPosCreate(1, 6), 0)
     return 2
 }
 
