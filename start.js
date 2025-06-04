@@ -402,24 +402,37 @@ function usoa_init(wid)
 
     let walk_array = yeCreateArray()
 
-    function add_walk_part(rect) {
+    function add_walk_part2(walk_array, rect, have_spear) {
 	let base = ywTextureNew(ywSizeCreate(48, 64), walk_array, null)
 	let body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(0, 0, 32, 64),
 				   null, null)
 	let leg = ywTextureNewImg("lancer-base.png", rect, null, null)
-	let spear = ywTextureNewImg("lancer-base.png", ywRectCreateInts(16, 128, 16, 64),
+	let spear = null
+	if (have_spear)
+	    spear = ywTextureNewImg("lancer-base.png", ywRectCreateInts(16, 128, 16, 64),
 				    null, null)
 	ywTextureMergeTexture(body, base, null, ywRectCreateInts(16, 0, 32, 64))
 	ywTextureMergeTexture(leg, base, null, ywRectCreateInts(16, 0, 32, 64))
-	ywTextureMergeTexture(spear, base, null, ywRectCreateInts(0, 0, 16, 64))
+	if (have_spear)
+	    ywTextureMergeTexture(spear, base, null, ywRectCreateInts(0, 0, 16, 64))
     }
 
-    add_walk_part(ywRectCreateInts(96, 64, 32, 64))
-    add_walk_part(ywRectCreateInts(64, 128, 32, 64))
-    add_walk_part(ywRectCreateInts(32, 128, 32, 64))
-    add_walk_part(ywRectCreateInts(64, 128, 32, 64))
+    function add_walk_part(walk_array, rect) {
+	add_walk_part2(walk_array, rect, true)
+    }
+
+    add_walk_part(walk_array, ywRectCreateInts(96, 64, 32, 64))
+    add_walk_part(walk_array, ywRectCreateInts(64, 128, 32, 64))
+    add_walk_part(walk_array, ywRectCreateInts(32, 128, 32, 64))
+    add_walk_part(walk_array, ywRectCreateInts(64, 128, 32, 64))
 
     handler.get("txts").push(walk_array, "walk")
+
+    let turn_array = yeCreateArray()
+    add_walk_part(turn_array, ywRectCreateInts(64, 128, 32, 64))
+    add_walk_part2(turn_array, ywRectCreateInts(64, 64, 32, 64), false)
+    handler.get("txts").push(turn_array, "turn")
+
 
     let dead_array = yeCreateArray()
     body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(32, 0, 32, 64),
@@ -461,11 +474,10 @@ function mod_init(mod)
     yeCreateFunction(monster_dead, mod, "monster_dead")
 
     yeCreateFunction(lvl_up, wid, "lvl_up")
-    wid.setAt("background", "rgba: 255 255 255 255")
     wid.setAt("<type>", "usoa")
     ywRectCreateInts(8, 0, 16, 32, wid, "pc-collision-projection")
     wid.setAt("map", "intro")
-    //wid.setAt("map", "lvl02")
+    //wid.setAt("map", "lvl0")
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     wid.setAt("#-yblock", 1)

@@ -5,6 +5,7 @@
 	["upshoot", ["usoa.armor"]]
     ],
     "move_objs": [1],
+    "back_background": "rgba: 20 20 20 255",
     "background": "img/old-dark-castle-interior-background.png",
     "background_auto_scale": true,
     "no-fall": true,

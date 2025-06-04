@@ -16,6 +16,7 @@
 				"durring the ocupation"], "mage"]
 	]
     ],
+    "back_background": "rgba: 20 25 20 255",
     "background": "img/forest-bg.png",
     "background_auto_scale": true,
     "next": "lvl0",

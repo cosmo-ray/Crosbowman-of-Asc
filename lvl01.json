@@ -6,6 +6,7 @@
 	["door", ["amap.next1"]]
     ],
     "objs_condition": [null, ["!exist", "usoa.running_wid.can_upshoot"]],
+    "back_background": "rgba: 20 20 20 255",
     "background": "img/old-dark-castle-interior-background.png",
     "background_auto_scale": true,
     "move_objs": [1],
