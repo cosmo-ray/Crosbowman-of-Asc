@@ -385,9 +385,8 @@ function boss0(wid, tuple)
     y_move_obj(boss_canel, mover, turn_timer)
 }
 
-function usoa_init(wid)
+function new_lancer(wid)
 {
-    let animations = yeCreateArray(wid, "animations")
     let lancer_base = yeCreateArray()
     let base = ywTextureNew(ywSizeCreate(48, 64), lancer_base, null)
     let body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(0, 0, 32, 64),
@@ -398,7 +397,7 @@ function usoa_init(wid)
     ywTextureMergeTexture(leg, base, null, null, ywRectCreateInts(16, 0, 32, 64))
 
     let handler = yGenericNewTexturesArray(wid, lancer_base, yeCreateArray(),
-					   ywPosCreate(0, 0), animations, "lancer")
+					   ywPosCreate(0, 0), null, null)
 
     let walk_array = yeCreateArray()
 
@@ -446,6 +445,14 @@ function usoa_init(wid)
     body = ywTextureNewImg("lancer-base.png", ywRectCreateInts(32, 64, 32, 64),
 			   dead_array, null)
     handler.get("txts").push(dead_array, "dead")
+    return handler
+}
+
+function usoa_init(wid)
+{
+    let animations = yeCreateArray(wid, "monster_animations")
+    yeCreateFunction(new_lancer, animations, "lancer")
+
 
     ygGet("usoa").setAt("running_wid", wid)
     let ret = ywidNewWidget(wid, "amap")
@@ -476,8 +483,8 @@ function mod_init(mod)
     yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("<type>", "usoa")
     ywRectCreateInts(8, 0, 16, 32, wid, "pc-collision-projection")
-    wid.setAt("map", "intro")
-    //wid.setAt("map", "lvl0")
+    //wid.setAt("map", "intro")
+    wid.setAt("map", "lvl15")
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     wid.setAt("#-yblock", 1)

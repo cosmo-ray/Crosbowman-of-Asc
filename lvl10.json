@@ -1,11 +1,16 @@
 {
     "size": [40, 20],
     "objs": [
-	["door", ["amap.next", [39, 8]]],
+	["door", ["amap.next", [27, 4]]],
 	["upshoot", ["usoa.can_longjmp"]]
     ],
-    "next": "lvl0",
+    "next": "lvl15",
     "move_objs": [1],
+    "back_background": "rgba: 20 20 50 255",
+    "background": [
+	"cave-background-assets/1.png",
+	"cave-background-assets/7.png"
+    ],
     "boss": {
 	"path": ["threeformsPJ2.png", [0, 0, 64, 128]],
 	"life": 30,
