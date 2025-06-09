@@ -457,6 +457,15 @@ function usoa_init(wid)
     ygGet("usoa").setAt("running_wid", wid)
     let ret = ywidNewWidget(wid, "amap")
     y_set_talk_rect_style("rgba: 200 200 200 200", 3)
+
+    // DEBUG  val uncomment to debug:
+    let pc = wid.get("pc")
+    pc.setAt("jmp-power", 10)
+    wid.setAt("can_upshoot", 1)
+
+    // end debug val
+
+
     return ret
 }
 
@@ -483,8 +492,12 @@ function mod_init(mod)
     yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("<type>", "usoa")
     ywRectCreateInts(8, 0, 16, 32, wid, "pc-collision-projection")
-    //wid.setAt("map", "intro")
-    wid.setAt("map", "lvl15")
+    wid.setAt("map", "intro")
+
+    // DEBUG  val uncomment to debug:
+    wid.setAt("map", "lvl11")
+
+
     wid.setAt("life-bar", 1)
     wid.setAt("next-lvl", 1)
     wid.setAt("#-yblock", 1)

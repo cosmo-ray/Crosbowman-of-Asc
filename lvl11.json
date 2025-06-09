@@ -1,0 +1,28 @@
+{
+    "size": [45, 15],
+    "#": {
+	"path": "img/plates.png",
+	"src_rect": [0, 0, 32, 32]
+    },
+    "'": "rgba: 127 127 127 255",
+    "objs": [
+	["door", ["amap.next", [13, 0]]],
+	["upshoot", ["usoa.armor"]]
+    ],
+    "back_background": "rgba: 20 20 50 255",
+    "background": [
+	"cave-background-assets/1.png",
+	"cave-background-assets/7.png"
+    ],
+    "background_auto_scale": true,
+    "monsters": {
+	"v": {
+	    "life": 5,
+	    "action": ["amap.mons_mv.left_right", 200],
+	    "dead": "amap.monster_dead",
+	    "animation": "lancer",
+	    "max_life": 10
+	}
+    },
+    "next": "lvl15"
+}
