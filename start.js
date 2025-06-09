@@ -448,10 +448,41 @@ function new_lancer(wid)
     return handler
 }
 
+function new_skele(wid)
+{
+    const walk_path = "Monsters_Creatures_Fantasy/Skeleton/Walk.png"
+    const death_path = "Monsters_Creatures_Fantasy/Skeleton/Death.png"
+
+    let lancer_base = yeCreateArray()
+    let base = ywTextureNewImg(walk_path, ywRectCreateInts(50, 40, 64, 96),
+			       lancer_base, null)
+
+    let handler = yGenericNewTexturesArray(wid, lancer_base, yeCreateArray(),
+					   ywPosCreate(0, 0), null, null)
+
+    let walk_array = yeCreateArray()
+
+    ywTextureNewImg(walk_path, ywRectCreateInts(50, 40, 64, 96), walk_array, null)
+    ywTextureNewImg(walk_path, ywRectCreateInts(200, 40, 64, 96), walk_array, null)
+    ywTextureNewImg(walk_path, ywRectCreateInts(345, 40, 64, 96), walk_array, null)
+
+    handler.get("txts").push(walk_array, "walk")
+
+
+    let dead_array = yeCreateArray()
+    ywTextureNewImg(death_path, ywRectCreateInts(50, 40, 64, 96), dead_array, null)
+    ywTextureNewImg(death_path, ywRectCreateInts(200, 40, 64, 96), dead_array, null)
+    ywTextureNewImg(death_path, ywRectCreateInts(345, 40, 64, 96), dead_array, null)
+    handler.get("txts").push(dead_array, "dead")
+    return handler
+}
+
+
 function usoa_init(wid)
 {
     let animations = yeCreateArray(wid, "monster_animations")
     yeCreateFunction(new_lancer, animations, "lancer")
+    yeCreateFunction(new_skele, animations, "skele")
 
 
     ygGet("usoa").setAt("running_wid", wid)

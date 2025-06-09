@@ -23,11 +23,11 @@
 	    "animation": "lancer",
 	    "max_life": 10
 	},
-	"a": {
+	"s": {
 	    "life": 5,
-	    "action": ["amap.mons_mv.left_right", 200],
+	    "action": ["amap.mons_mv.left_right_flipped", 200],
 	    "dead": "amap.monster_dead",
-	    "animation": "lancer",
+	    "animation": "skele",
 	    "max_life": 10
 	}
 
