@@ -22,7 +22,15 @@
 	    "dead": "amap.monster_dead",
 	    "animation": "lancer",
 	    "max_life": 10
+	},
+	"a": {
+	    "life": 5,
+	    "action": ["amap.mons_mv.left_right", 200],
+	    "dead": "amap.monster_dead",
+	    "animation": "lancer",
+	    "max_life": 10
 	}
+
     },
     "next": "lvl15"
 }

@@ -37,6 +37,10 @@ img/old-dark-castle-interior-background.png:
 CC0
 https://ansimuz.itch.io/gothicvania-patreon-collection
 
+monsters-creatures-fantasy/*:
+https://luizmelo.itch.io/monsters-creatures-fantasy
+CC0
+
 art made be me:
 Used art:
 - fly/fly2
@@ -45,7 +49,6 @@ Used art:
 
 unsed art are also made by me:
 (which might be remove from this repo at some point, but you could get them form commit tree)
-- guy-*.png
 - ketchup*.png
 
 All art by me are in CC0.
