@@ -25,7 +25,7 @@
 	},
 	"s": {
 	    "life": 5,
-	    "action": ["amap.mons_mv.left_right_flipped", 200],
+	    "action": ["amap.mons_mv.platform_atk", 1],
 	    "dead": "amap.monster_dead",
 	    "animation": "skele",
 	    "max_life": 10

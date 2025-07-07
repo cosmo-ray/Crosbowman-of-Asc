@@ -454,7 +454,7 @@ function new_skele(wid)
     const death_path = "Monsters_Creatures_Fantasy/Skeleton/Death.png"
 
     let lancer_base = yeCreateArray()
-    let base = ywTextureNewImg(walk_path, ywRectCreateInts(50, 40, 64, 96),
+    let base = ywTextureNewImg(walk_path, ywRectCreateInts(50, 40, 64, 64),
 			       lancer_base, null)
 
     let handler = yGenericNewTexturesArray(wid, lancer_base, yeCreateArray(),
@@ -462,9 +462,9 @@ function new_skele(wid)
 
     let walk_array = yeCreateArray()
 
-    ywTextureNewImg(walk_path, ywRectCreateInts(50, 40, 64, 96), walk_array, null)
-    ywTextureNewImg(walk_path, ywRectCreateInts(200, 40, 64, 96), walk_array, null)
-    ywTextureNewImg(walk_path, ywRectCreateInts(345, 40, 64, 96), walk_array, null)
+    ywTextureNewImg(walk_path, ywRectCreateInts(50, 40, 64, 64), walk_array, null)
+    ywTextureNewImg(walk_path, ywRectCreateInts(200, 40, 64, 64), walk_array, null)
+    ywTextureNewImg(walk_path, ywRectCreateInts(345, 40, 64, 64), walk_array, null)
 
     handler.get("txts").push(walk_array, "walk")
 
