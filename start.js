@@ -40,6 +40,14 @@ __/ | | |\\__
      -- \\\\\\\\\\\\\\
 `
 
+const mage_head_path = "img/heads/mage.png"
+
+const jean_head_armors_path = ["img/heads/jean-nacked.png",
+			       "img/heads/jean-light-armor.png",
+			       "img/heads/jean-half-armor.png",
+			       "img/heads/jean-armored.png"]
+
+let jean_head_path = jean_head_armors_path[0]
 
 function monster_dead_next(wid, anim_info)
 {
@@ -108,9 +116,9 @@ function lvl_up(wid)
     lvl_up_sts += "got " + (pc.get("stats").geti("agility") - old_pc.get("stats").geti("agility")) + " agility"
     wid.get("next-lvl").mult(2)
     pc.setAt("life", pc.geti("max_life"))
-    y_set_head(GUARD_HEAD)
+    y_set_head_img(jean_head_path)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), lvl_up_sts)
-    y_set_head(MAGE_HEAD)
+    y_set_head_img(mage_head_path)
     return 1
 }
 
@@ -124,6 +132,7 @@ function armor(wid)
 	armor = yeCreateArray(pc, "armor")
     }
     let protect = armor.geti("protect") + 1
+    jean_head_path = jean_head_armors_path[protect]
     armor.setAt("protect", protect)
     let pc_handler = yeGet(wid, "pc_handler")
     let ignore = yeCreateArray()
@@ -149,9 +158,10 @@ function armor(wid)
 	    ywTextureMergeTexture(armor_txt, p, null, null, null)
     }
     yePrint2(pc_handler.get("txts"), ignore)
-    y_set_head(GUARD_HEAD)
+
+    y_set_head_img(jean_head_path)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "some nice armor, I could use")
-    y_set_head(MAGE_HEAD)
+    y_set_head_img(mage_head_path)
     return 2
 }
 
@@ -176,7 +186,7 @@ function talk(wid, obj, txt, who)
 	print("who: ", who)
 	yePrint(who)
 	if (yeType(who) == YSTRING && who.s() == "mage") {
-	    y_set_head(MAGE_HEAD)
+	    y_set_head_img(mage_head_path)
 	}
 	y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), txt_s)
 	obj.setAt("timer", 0)
@@ -187,7 +197,7 @@ function talk(wid, obj, txt, who)
 function can_longjmp(wid)
 {
     let pc = wid.get("pc")
-    y_set_head(MAGE_HEAD)
+    y_set_head_img(mage_head_path)
     pc.setAt("jmp-power", 10)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "You can now jump longer")
     return 2 | 0x10
@@ -195,7 +205,7 @@ function can_longjmp(wid)
 
 function can_upshoot(wid)
 {
-    ygGet("stop-screen.y_set_head").call(MAGE_HEAD)
+    ygGet("stop-screen.y_set_head_img").call(mage_head_path)
     wid.setAt("can_upshoot", 1)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "You can now upshoot, also some block might be destructible")
     return 0x12
