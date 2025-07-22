@@ -6,7 +6,7 @@
     },
     "'": "rgba: 127 127 127 255",
     "objs": [
-	["door", "amap.next"],
+	["door", ["amap.next", [41, 8]]],
 	["door", "amap.next1"],
 	["door", "amap.next2"]
     ],
