@@ -68,8 +68,6 @@ function monster_dead_next(wid, anim_info)
 
     ywCanvasRemoveObj(wid, anim_info.get(0))
     anim_info.setAt(0, a)
-    print("===== monster_dead_next =====")
-    yePrint(anim_info)
     return 0
 }
 
@@ -124,7 +122,6 @@ function lvl_up(wid)
 
 function armor(wid)
 {
-    print("armor")
     let pc = wid.get("pc")
     let armor = pc.get("armor")
 
@@ -135,8 +132,6 @@ function armor(wid)
     jean_head_path = jean_head_armors_path[protect]
     armor.setAt("protect", protect)
     let pc_handler = yeGet(wid, "pc_handler")
-    let ignore = yeCreateArray()
-    ignore.setAt(0, "wid")
     let textures = pc_handler.get("txts")
     let base = textures.get("base")
 
@@ -157,7 +152,6 @@ function armor(wid)
     for (p of textures.get("punch")) {
 	    ywTextureMergeTexture(armor_txt, p, null, null, null)
     }
-    yePrint2(pc_handler.get("txts"), ignore)
 
     y_set_head_img(jean_head_path)
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid), "some nice armor, I could use")
@@ -183,8 +177,6 @@ function talk(wid, obj, txt, who)
 	}
     }
     if (obj.geti("timer") > 2000000) {
-	print("who: ", who)
-	yePrint(who)
 	if (yeType(who) == YSTRING && who.s() == "mage") {
 	    y_set_head_img(mage_head_path)
 	}
@@ -266,14 +258,35 @@ function boss0_dead(wid, tuple)
     return 2
 }
 
+
+function end_anim_boss1(anim_wid)
+{
+    let parent = anim_wid.get("$father-container")
+    let amap_wid = ywCntGetEntry(parent, 0)
+    yesCall(ygGet("amap.next"), amap_wid)
+    ywCntPopLastEntry(parent)
+}
+
+function boss1_dead_animation(wid)
+{
+    let parent = wid.get("$father-container")
+    let anim = yeCreateArray()
+    ywPushNewWidget(parent, anim, 0)
+    anim.setAt("path", "animations/anim-desc.json")
+    anim.setAt("<type>", "small-anim")
+    anim.setAt("end", end_anim_boss1)
+    return 2
+}
+
 function boss1_next_form(wid, tuple)
 {
     let boss_i = wid.get("_mi").get("boss")
     let boss = tuple.get(0)
     let boss_canel = boss.get(0)
+
     boss_i.setAt("life", 20)
     boss_i.setAt("action", "usoa.boss1")
-    boss_i.setAt("win", "usoa.boss_push_obj0")
+    boss_i.setAt("win", "usoa.boss1_dead_animation")
     let bpos = ywCanvasObjPos(boss_canel) // get boss pos
     let rect = ywRectCreateInts(94, 0, 108, 128)
 
@@ -321,7 +334,6 @@ function boss1(wid, tuple)
 	let boss_info = wid.get("_mi").get("boss")
 	let nb_attack = 2
 
-	print("life: ", boss_info.geti("life"))
 	if (boss_info.geti("life") < 20)
 	    nb_attack = 4
 	for (let i = 0; i < nb_attack; ++i) {
@@ -376,7 +388,6 @@ function boss0(wid, tuple)
 	let boss_info = wid.get("_mi").get("boss")
 	let nb_attack = 1
 
-	print("life: ", boss_info.geti("life"))
 	if (boss_info.geti("life") < 20)
 	    nb_attack = 2
 	for (let i = 0; i < nb_attack; ++i) {
@@ -495,8 +506,16 @@ function usoa_init(wid)
     yeCreateFunction(new_skele, animations, "skele")
 
 
+    wid.setAt("<type>", "amap")
     ygGet("usoa").setAt("running_wid", wid)
-    let ret = ywidNewWidget(wid, "amap")
+    let cnt = yeCreateArray()
+    yeIncrRef(cnt) // because we return this widget to be set as main, need to be incrref.
+    cnt.setAt("<type>", "container")
+    yeCreateArray(cnt, "entries")
+    cnt.get("entries").push(wid)
+    yeDestroy(wid) // because we replace this as the main wid, it need to be manually destroy
+    cnt.setAt("cnt-type", "stack")
+    let ret = ywidNewWidget(cnt, "container")
     y_set_talk_rect_style("rgba: 200 200 200 200", 3)
 
     // DEBUG  val uncomment to debug:
@@ -514,6 +533,7 @@ function mod_init(mod)
 {
     let wid = ygInitWidgetModule(mod, "usoa", yeCreateFunction("usoa_init"))
     ygAddModule(Y_MOD_YIRL, mod, "amap")
+    ygAddModule(Y_MOD_YIRL, mod, "small-anim")
     mod.setAt("Name", "usoa")
 
     // this is so wasm module can work
@@ -526,6 +546,7 @@ function mod_init(mod)
     yeCreateFunction(boss1, mod, "boss1")
     yeCreateFunction(boss0_dead, mod, "boss0_dead")
     yeCreateFunction(boss_push_obj0, mod, "boss_push_obj0")
+    yeCreateFunction(boss1_dead_animation, mod, "boss1_dead_animation")
     yeCreateFunction(boss1_next_form, mod, "boss1_next_form")
     yeCreateFunction(bullet, mod, "bullet")
     yeCreateFunction(monster_dead, mod, "monster_dead")
@@ -536,7 +557,7 @@ function mod_init(mod)
     wid.setAt("map", "intro")
 
     // DEBUG  val uncomment to debug:
-    wid.setAt("map", "lvl11")
+    wid.setAt("map", "lvl20")
 
 
     wid.setAt("life-bar", 1)
