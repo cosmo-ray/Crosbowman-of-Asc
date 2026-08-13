@@ -2,7 +2,8 @@
     "size": [40, 14],
     "objs": [
 	["door", ["amap.next", [13, 2]]],
-	["upshoot", ["usoa.armor"]]
+	["upshoot", ["usoa.armor"]],
+	["portal", ["amap.next", [13, 2]]]
     ],
     "move_objs": [1],
     "back_background": "rgba: 20 20 20 255",

@@ -557,7 +557,7 @@ function mod_init(mod)
     wid.setAt("map", "intro")
 
     // DEBUG  val uncomment to debug:
-    wid.setAt("map", "lvl20")
+    wid.setAt("map", "lvl02")
 
 
     wid.setAt("life-bar", 1)
@@ -594,6 +594,15 @@ function mod_init(mod)
 
     let textures = yeCreateArray(wid, "extra-textures")
     textures.setAt("upshoot", "up-shoot.png")
+
+    let portal_anim = yeCreateHash()
+    portal_anim.setAt("path", "img/portal.png")
+    let portal_rects = yeCreateArray(portal_anim, "rects")
+    portal_rects.push(ywRectCreateInts(32, 0, 32, 32))
+    portal_rects.push(ywRectCreateInts(64, 0, 32, 32))
+    portal_rects.push(ywRectCreateInts(0, 32, 32, 32))
+    portal_rects.push(ywRectCreateInts(32, 32, 32, 32))
+    textures.setAt("portal", portal_anim)
 
     let bullet_array = yeCreateArray()
     bullet_array.setAt(0, "M484ExplosionSet2.png")
