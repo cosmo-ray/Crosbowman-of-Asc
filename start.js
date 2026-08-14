@@ -160,6 +160,22 @@ function armor(wid)
 }
 
 
+function win_stat(wid, obj, stat, amount)
+{
+    let pc = wid.get("pc")
+    if (stat.s() == "life") {
+	let new_life = pc.geti("life") + amount.i()
+	if (new_life > pc.geti("max_life"))
+	    new_life = pc.geti("max_life")
+	pc.setAt("life", new_life)
+    }
+    y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid),
+		"Gain +" + amount.i() + " " + stat.s())
+    yamap_pc_stop(wid)
+    return 2
+}
+
+
 function talk(wid, obj, txt, who)
 {
     if (!obj.get("timer"))
@@ -542,6 +558,7 @@ function mod_init(mod)
     yeCreateFunction(can_longjmp, mod, "can_longjmp")
     yeCreateFunction(talk, mod, "talk")
     yeCreateFunction(armor, mod, "armor")
+    yeCreateFunction(win_stat, mod, "win_stat")
     yeCreateFunction(boss0, mod, "boss0")
     yeCreateFunction(boss1, mod, "boss1")
     yeCreateFunction(boss0_dead, mod, "boss0_dead")
@@ -617,6 +634,9 @@ function mod_init(mod)
     textures.setAt("fly", "fly.png")
     textures.setAt("fly2", "fly2.png")
     textures.setAt("mage", "mage.png")
+    textures.setAt("red-potion", "red-potion.png")
+    textures.setAt("blue-potion", "blue-potion.png")
+    textures.setAt("green-potion", "green-potion.png")
 
     let on_callbacks = yeCreateArray(wid, "on")
     yeCreateFunction(on_esc, on_callbacks, "esc")

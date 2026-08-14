@@ -3,7 +3,10 @@
     "objs": [
 	["door", ["amap.next", [13, 2]]],
 	["upshoot", ["usoa.armor"]],
-	["portal", ["amap.next", [13, 2]]]
+	["portal", ["amap.next", [13, 2]]],
+	["red-potion", ["usoa.win_stat", "life", 10]],
+	["blue-potion", ["usoa.win_stat", "life", 5]],
+	["green-potion", ["usoa.win_stat", "life", 3]]
     ],
     "move_objs": [1],
     "back_background": "rgba: 20 20 20 255",
