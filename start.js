@@ -175,6 +175,36 @@ function win_stat(wid, obj, stat, amount)
     return 2
 }
 
+function monster_drop(wid, mon, _mon_info)
+{
+    const percent = yuiRand() % 100
+    let threshold = 5
+    const nb_output = 2
+    if (percent < threshold)
+        return
+    let rand_res = yuiRand() % nb_output;
+    let objs = wid.get("_mi").get("objs")
+    let o = yeCreateArray()
+    let action = yeCreateArray();
+    action.push("usoa.win_stat")
+    switch (rand_res) {
+    case 0:
+	o.push("blue-potion")
+	action.push("life")
+	action.push(5)
+	break;
+    case 1:
+	o.push("green-push")
+	action.push("life")
+	action.push(3)
+	break;
+    }
+    o.push(action)
+    objs.push(o)
+    let m_pos = mon.get(1)
+    yamap_push_obj(wid, ywPosCreate(ywPosX(m_pos) / 32, ywPosY(m_pos) / 32),
+                   yeLen(objs) - 1)
+}
 
 function talk(wid, obj, txt, who)
 {
@@ -567,6 +597,7 @@ function mod_init(mod)
     yeCreateFunction(boss1_next_form, mod, "boss1_next_form")
     yeCreateFunction(bullet, mod, "bullet")
     yeCreateFunction(monster_dead, mod, "monster_dead")
+    yeCreateFunction(monster_drop, mod, "monster_drop")
 
     yeCreateFunction(lvl_up, wid, "lvl_up")
     wid.setAt("<type>", "usoa")

@@ -2,7 +2,8 @@
     "size": [40, 20],
     "objs": [
 	["door", ["amap.next", [27, 4]]],
-	["upshoot", ["usoa.can_longjmp"]]
+	["upshoot", ["usoa.can_longjmp"]],
+	["red-potion", ["usoa.win_stat", "life", 15]]
     ],
     "next": "lvl15",
     "move_objs": [1],
