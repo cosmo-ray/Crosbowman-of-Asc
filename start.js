@@ -163,14 +163,18 @@ function armor(wid)
 function win_stat(wid, obj, stat, amount)
 {
     let pc = wid.get("pc")
-    if (stat.s() == "life") {
+    stat = stat.s()
+    if (stat == "life") {
 	let new_life = pc.geti("life") + amount.i()
 	if (new_life > pc.geti("max_life"))
 	    new_life = pc.geti("max_life")
 	pc.setAt("life", new_life)
+    } else if (stat == "gold") {
+	let new_gold = pc.geti("money") + amount.i()
+	pc.setAt("money", new_gold)
     }
     y_stop_head(wid, ywCanvasPix0X(wid), ywCanvasPix0Y(wid),
-		"Gain +" + amount.i() + " " + stat.s())
+		"Gain +" + amount.i() + " " + stat)
     yamap_pc_stop(wid)
     return 2
 }
@@ -179,13 +183,16 @@ function monster_drop(wid, mon, _mon_info)
 {
     const percent = yuiRand() % 100
     let threshold = 5
-    const nb_output = 2
-    if (percent < threshold)
+    const nb_output = 5
+    print(percent, " < ", threshold)
+    if (percent > threshold) {
         return
+    }
     let rand_res = yuiRand() % nb_output;
     let objs = wid.get("_mi").get("objs")
     let o = yeCreateArray()
     let action = yeCreateArray();
+    let money_win = 1
     action.push("usoa.win_stat")
     switch (rand_res) {
     case 0:
@@ -197,6 +204,15 @@ function monster_drop(wid, mon, _mon_info)
 	o.push("green-push")
 	action.push("life")
 	action.push(3)
+	break;
+    case 4:
+	money_win += (yuiRand() % 5);
+    case 3:
+	money_win += (yuiRand() % 5);
+    case 2:
+	o.push("gold")
+	action.push("gold")
+	action.push(money_win)
 	break;
     }
     o.push(action)
@@ -665,6 +681,7 @@ function mod_init(mod)
     textures.setAt("fly", "fly.png")
     textures.setAt("fly2", "fly2.png")
     textures.setAt("mage", "mage.png")
+    textures.setAt("gold", "bag.png")
     textures.setAt("red-potion", "red-potion.png")
     textures.setAt("blue-potion", "blue-potion.png")
     textures.setAt("green-potion", "green-potion.png")
